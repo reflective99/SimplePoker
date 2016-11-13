@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class InputReader {
   
-  private Map<Integer, List<String>> playerHand;
+  private Map<Integer, List<String>> playerHands;
   private int numPlayers;
   private Scanner scanner;
   
@@ -24,7 +24,7 @@ public class InputReader {
     numPlayers = scanner.nextInt(); 
     scanner.nextLine();
     
-    playerHand = new HashMap<Integer, List<String>>();
+    playerHands = new HashMap<Integer, List<String>>();
     
     for(int i = 0; i < numPlayers; i++){
       String s = scanner.nextLine();
@@ -33,22 +33,22 @@ public class InputReader {
       for(int j = 1; j < spl.length; j++){
         hand.add(spl[j]);
       }
-      playerHand.put(Integer.parseInt(spl[0]), hand);
+      playerHands.put(Integer.parseInt(spl[0]), hand);
     }
       
     scanner.close();
     System.out.println();
     System.out.println("numPlayers: " + numPlayers);
-    System.out.println("input: " + playerHand);
+    System.out.println("input: " + playerHands);
     
   }
   
-  public Map<Integer, List<String>> getPlayerHand() {
-    return playerHand;
+  public Map<Integer, List<String>> getPlayerHands() {
+    return playerHands;
   }
 
-  public void setPlayerHand(Map<Integer, List<String>> playerHand) {
-    this.playerHand = playerHand;
+  public void setplayerHands(Map<Integer, List<String>> playerHands) {
+    this.playerHands = playerHands;
   }
 
   public int getNumPlayers() {

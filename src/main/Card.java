@@ -1,11 +1,11 @@
 package main;
 
-public class Card {
+public class Card implements Comparable<Card>{
   
   private CardSuit suit;
   private CardRank rank;
 
-  public Card(CardSuit suit, CardRank rank) {
+  public Card(CardRank rank, CardSuit suit) {
     this.suit = suit;
     this.rank = rank;
   }
@@ -29,6 +29,17 @@ public class Card {
   public Integer getRankAsInt() {
     return rank.ordinal();
   }
+  
+  @Override
+  public int compareTo(Card other) {
+    if(this.rank.ordinal() < other.rank.ordinal()){
+      return -1;
+    } else if (this.rank.ordinal() > other.rank.ordinal()){
+      return 1;
+    }
+    return 0;
+    
+  }
 
   @Override 
   public boolean equals(Object other) {
@@ -49,7 +60,7 @@ public class Card {
   
   @Override 
   public String toString() {
-    return "Suit: " + this.suit.toString() + ", Rank: " + this.rank.toString();
+    return " [Rank: " + rank.toString() + ", Suit: " + suit.toString() + "] ";
   }
 
 }
