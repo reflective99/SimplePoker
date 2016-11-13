@@ -13,7 +13,9 @@ public class InputReader {
   private Scanner scanner;
   
   public InputReader(Scanner sc){
-    this.scanner = sc;
+    if(sc == null)
+      throw new IllegalArgumentException();
+    scanner = sc;
     readInput(this.scanner);
   }
   
@@ -39,6 +41,30 @@ public class InputReader {
     System.out.println("numPlayers: " + numPlayers);
     System.out.println("input: " + playerHand);
     
+  }
+  
+  public Map<Integer, List<String>> getPlayerHand() {
+    return playerHand;
+  }
+
+  public void setPlayerHand(Map<Integer, List<String>> playerHand) {
+    this.playerHand = playerHand;
+  }
+
+  public int getNumPlayers() {
+    return numPlayers;
+  }
+
+  public void setNumPlayers(int numPlayers) {
+    this.numPlayers = numPlayers;
+  }
+
+  public Scanner getScanner() {
+    return scanner;
+  }
+
+  public void setScanner(Scanner scanner) {
+    this.scanner = scanner;
   }
 
 }
