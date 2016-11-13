@@ -101,7 +101,7 @@ public class RankCalculator {
 
     Collections.sort(list);
     for(Player p : list){
-      System.out.println(p.getID()+":ranking: " + p.getRanking() + " cr: " + p.getCR());
+      p.toStringWithRank();
     }
     
     System.out.println("=====================================================");
