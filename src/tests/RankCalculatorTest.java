@@ -54,7 +54,7 @@ public class RankCalculatorTest {
     System.setIn(new FileInputStream(testFile));
     Scanner sc = new Scanner(System.in);
     inputReader = new InputReader(sc);
-    winners = ranker.rankWinners(ranker, inputReader);
+    winners = ranker.rankWinners(ranker, inputReader.getPlayerHands());
     System.setIn(new FileInputStream(testFile));
     sc = new Scanner(System.in);
     String expected = null;
@@ -68,6 +68,7 @@ public class RankCalculatorTest {
       expectedWinners.add(Integer.parseInt(s));
     }
     System.out.println("ExpectedWinnersArr: " + expectedWinners);
+    System.out.println("Winners: " + winners);
   }
 
   @Test 

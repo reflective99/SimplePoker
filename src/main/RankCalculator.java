@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class RankCalculator {
-
+  
   private int numTotalPlayers;
   private List<Player> playerList = new ArrayList<Player>();
   private List<Integer> winners = new ArrayList<Integer>();
@@ -49,15 +48,15 @@ public class RankCalculator {
   private CardRank determineCardRank(String s) {
     CardRank rank = null;
     switch (s.charAt(0)) {
-      case '2': rank = CardRank.CARD2; break;
-      case '3': rank = CardRank.CARD3; break;
-      case '4': rank = CardRank.CARD4; break;
-      case '5': rank = CardRank.CARD5; break;
-      case '6': rank = CardRank.CARD6; break;
-      case '7': rank = CardRank.CARD7; break;
-      case '8': rank = CardRank.CARD8; break;
-      case '9': rank = CardRank.CARD9; break;
-      case 'T': rank = CardRank.CARD10; break;
+      case '2': rank = CardRank.TWO; break;
+      case '3': rank = CardRank.THREE; break;
+      case '4': rank = CardRank.FOUR; break;
+      case '5': rank = CardRank.FIVE; break;
+      case '6': rank = CardRank.SIX; break;
+      case '7': rank = CardRank.SEVEN; break;
+      case '8': rank = CardRank.EIGHT; break;
+      case '9': rank = CardRank.NINE; break;
+      case 'T': rank = CardRank.TEN; break;
       case 'J': rank = CardRank.JACK; break;
       case 'Q': rank = CardRank.QUEEN; break;
       case 'K': rank = CardRank.KING; break;
@@ -89,30 +88,14 @@ public class RankCalculator {
     return this.playerList;
   }
 
-  public static void main(String[] args) {
+  public List<Integer> rankWinners(RankCalculator ranker, Map<Integer, List<String>> map) {
 
-    Scanner input = new Scanner(System.in);
+    generatePlayersWithCards(map);
 
-    InputReader inputReader = new InputReader(input);
-
-    RankCalculator ranker = new RankCalculator();
-
-    List<Integer> winners = ranker.rankWinners(ranker, inputReader);
-
-  }
-
-  public List<Integer> rankWinners(RankCalculator ranker, InputReader inputReader) {
-    ranker.setNumTotalPlayers(inputReader.getNumPlayers());
-
-    Map<Integer, List<String>> map = inputReader.getPlayerHands();
-
-    ranker.generatePlayersWithCards(map);
-
-    List<Player> list = ranker.getPlayerList();
+    List<Player> list = getPlayerList();
 
     for(Player p : list){
-      Ranking rank = ranker.evaluateRanking(p);
-      System.out.println(p.toString());
+      Ranking rank = evaluateRanking(p);
       System.out.println(p.toStringWithRank());
     }
 
@@ -120,11 +103,12 @@ public class RankCalculator {
     for(Player p : list){
       System.out.println(p.getID()+":ranking: " + p.getRanking() + " cr: " + p.getCR());
     }
-    System.out.println("============= WINNERS ================");
+    
+    System.out.println("=====================================================");
     
     Player winner = list.get(0);
     
-    ranker.winners.add(winner.getID());
+    winners.add(winner.getID());
     
     for(int i = 1; i < list.size(); i++) {
       if(list.get(i-1).getCR() == list.get(i).getCR()){
@@ -133,22 +117,9 @@ public class RankCalculator {
         break;
       }
     }
-    if(winners.size() > 1) {
-      winners = breakTies(winners);
-    }
     System.out.println(ranker.winners);
-    return winners;
-  }
+    System.out.println("=====================================================");
 
-  //  HIGH_CARD,        // Ranking 0
-  //  PAIR,             // Ranking 1
-  //  FLUSH,            // Ranking 2
-  //  STRAIGHT,         // Ranking 3
-  //  THREE_OF_A_KIND,  // Ranking 4
-  //  STRAIGHT_FLUSH,   // Ranking 5
-
-  private List<Integer> breakTies(List<Integer> winners) {
-    
     return winners;
   }
 
@@ -159,10 +130,13 @@ public class RankCalculator {
   private Ranking evaluateRanking(Player p) {
 
     List<Card> hand = p.getHand();
+    
+    p.setRanking(Ranking.HIGH_CARD);
+    Ranking rank = Ranking.HIGH_CARD;
 
     Card first = hand.get(0);
     Card second = hand.get(1);
-    Card third = hand.get(hand.size()-1);
+    Card third = hand.get(2);
 
     /** Cards are already sorted so we check if the first
      * and the last card are from the same suit and then
@@ -180,7 +154,7 @@ public class RankCalculator {
      * If so, we set the ranking to Three of a Kind
      */
 
-    if(first.getSuit() == second.getSuit() && second.getSuit() == third.getSuit()) {
+    if(first.getRankAsInt() == second.getRankAsInt() && second.getRankAsInt() == third.getRankAsInt()) {
       p.setRanking(Ranking.THREE_OF_A_KIND);
       return Ranking.THREE_OF_A_KIND;
     }
@@ -191,7 +165,7 @@ public class RankCalculator {
      */
     if(third.getRankAsInt() - first.getRankAsInt() == 2){
       p.setRanking(Ranking.STRAIGHT);
-      return Ranking.STRAIGHT;
+      rank = Ranking.STRAIGHT;
     }
 
     /**
@@ -200,7 +174,7 @@ public class RankCalculator {
      */
     if(first.getSuit() == second.getSuit() && second.getSuit() == third.getSuit()){
       p.setRanking(Ranking.FLUSH);
-      return Ranking.FLUSH;
+      rank = Ranking.FLUSH;
     }
 
     /**
@@ -213,17 +187,27 @@ public class RankCalculator {
         (second.getRankAsInt() == third.getRankAsInt())
         ){
       p.setRanking(Ranking.PAIR);
-      return Ranking.PAIR;
-
+      rank = Ranking.PAIR;
     }
+   
+    return rank;
+  }
+  
+  public static void main(String[] args) {
+    
 
-    /**
-     * If all else fails, we select the highest card!
-     */
-    p.setRanking(Ranking.HIGH_CARD);
-    return Ranking.HIGH_CARD;
+    Scanner input = new Scanner(System.in);
+
+    InputReader inputReader = new InputReader(input);
+
+    RankCalculator ranker = new RankCalculator();
+    
+    ranker.setNumTotalPlayers(inputReader.getNumPlayers());
+ 
+    List<Integer> winners = ranker.rankWinners(ranker, inputReader.getPlayerHands());
 
   }
+
 
 
 }
