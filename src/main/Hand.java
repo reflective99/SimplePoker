@@ -1,9 +1,11 @@
 package main;
 
 public class Hand {
+  
+  private Card[] myCards;
 
-  public Hand() {
-    // TODO Auto-generated constructor stub
+  public Hand(Card[] cards) {
+    myCards = cards;
   }
 
 }
