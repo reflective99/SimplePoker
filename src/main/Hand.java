@@ -8,7 +8,7 @@ import main.Ranking;
 
 public class Hand implements Comparable<Hand>{
   
-  private static final boolean DEBUG = false;
+  private static final boolean DEBUG = true;
   
   private Card[] myCards;
   private int[] myRankValue;
