@@ -2,11 +2,20 @@ package main;
 
 public enum Ranking {
   
-  HIGH_CARD,        // Ranking 0
-  PAIR,             // Ranking 1
-  FLUSH,            // Ranking 2
-  STRAIGHT,         // Ranking 3
-  THREE_OF_A_KIND,  // Ranking 4
-  STRAIGHT_FLUSH,   // Ranking 5
-
+  HIGH_CARD(1),        // Ranking 1
+  PAIR(2),             // Ranking 2
+  FLUSH(3),            // Ranking 3
+  STRAIGHT(4),         // Ranking 4
+  THREE_OF_A_KIND(5),  // Ranking 5
+  STRAIGHT_FLUSH(6);   // Ranking 6
+  
+  private int value;
+  
+  private Ranking(int val){
+    value = val;
+  }
+  
+  public int getValue() {
+    return value;
+  }
 }

@@ -22,19 +22,22 @@ public class Card implements Comparable<Card>{
     return this.rank;
   }
 
-  public void setMyrank(CardRank rank) {
+  public void setMyRank(CardRank rank) {
     this.rank = rank;
   }
   
   public Integer getRankAsInt() {
-    return rank.ordinal();
+    if(this.rank == CardRank.ACE) {
+      return 14;
+    }
+    return rank.getValue();
   }
   
   @Override
   public int compareTo(Card other) {
-    if(this.rank.ordinal() < other.rank.ordinal()){
+    if(this.getRankAsInt() < other.getRankAsInt()){
       return -1;
-    } else if (this.rank.ordinal() > other.rank.ordinal()){
+    } else if (this.getRankAsInt() > other.getRankAsInt()){
       return 1;
     }
     return 0;
@@ -60,7 +63,7 @@ public class Card implements Comparable<Card>{
   
   @Override 
   public String toString() {
-    return " [Rank: " + rank.toString() + ", Suit: " + suit.toString() + "] ";
+    return " [" + rank+"("+this.getRankAsInt()+")" + " of " + suit.toString() + "] ";
   }
 
 }

@@ -7,42 +7,45 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class InputReader {
-  
+
   private Map<Integer, List<String>> playerHands;
   private int numPlayers;
   private Scanner scanner;
-  
+
   public InputReader(Scanner sc){
     if(sc == null)
       throw new IllegalArgumentException();
     scanner = sc;
     readInput(this.scanner);
   }
-  
+
   private void readInput(Scanner scanner) {
-    
+
     numPlayers = scanner.nextInt(); 
+    //System.out.println("Num Players Read: " + numPlayers);
     scanner.nextLine();
-    
+
     playerHands = new HashMap<Integer, List<String>>();
-    
+
     for(int i = 0; i < numPlayers; i++){
       String s = scanner.nextLine();
+      //System.out.println("Player Hands: " + s);
       String[] spl = s.split(" ");
+      //System.out.println("Hand Split: " + Arrays.toString(spl));
       List<String> hand = new ArrayList<String>();
       for(int j = 1; j < spl.length; j++){
         hand.add(spl[j]);
       }
       playerHands.put(Integer.parseInt(spl[0]), hand);
     }
-      
+
     scanner.close();
-    System.out.println();
-    System.out.println("numPlayers: " + numPlayers);
-    System.out.println("input: " + playerHands);
-    
+    //System.out.println();
+    //System.out.println("numPlayers: " + numPlayers);
+    //System.out.println("input: " + playerHands);
+
   }
-  
+
   public Map<Integer, List<String>> getPlayerHands() {
     return playerHands;
   }
