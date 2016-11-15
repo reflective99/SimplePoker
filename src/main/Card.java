@@ -1,7 +1,7 @@
 package main;
 
 public class Card implements Comparable<Card>{
-  
+
   private CardSuit suit;
   private CardRank rank;
 
@@ -63,7 +63,35 @@ public class Card implements Comparable<Card>{
   
   @Override 
   public String toString() {
-    return " [" + rank+"("+this.getRankAsInt()+")" + " of " + suit.toString() + "] ";
+    StringBuilder cardString = new StringBuilder();
+    cardString.append(" ");
+    int value = this.getRankAsInt();
+    if(value == 14){
+      cardString.append("Ace");
+    } else if (value == 13) {
+      cardString.append("King");
+    } else if (value == 12) {
+      cardString.append("Queen");
+    } else if (value == 11) {
+      cardString.append("Jack");
+    } else {
+      cardString.append(value);
+    }
+    switch(this.getSuit()) {
+      case SPADES:
+        cardString.append((char) '\u2660');         
+        break;
+      case DIAMONDS:
+        cardString.append((char) '\u2666');
+        break;
+      case HEARTS:
+        cardString.append((char) '\u2665');
+        break;
+      case CLUBS:
+        cardString.append((char) '\u2663');
+        break;
+    }
+    return cardString.toString();
   }
 
 }

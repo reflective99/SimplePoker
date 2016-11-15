@@ -6,9 +6,13 @@ import java.util.List;
 
 import main.Ranking;
 
+/**
+ *  
+ *
+ */
 public class Hand implements Comparable<Hand>{
   
-  private static final boolean DEBUG = true;
+  private static final boolean DEBUG = false;
   
   private Card[] myCards;
   private int[] myRankValue;
@@ -29,10 +33,6 @@ public class Hand implements Comparable<Hand>{
       ranks[myCards[i].getRank().getValue()]++;
     }
     
-    if(DEBUG == true) {
-      System.out.println(Arrays.toString(ranks));
-    }
-    
     int numSameCards = 1;
     int sameCardsRank = 1;
     
@@ -42,9 +42,6 @@ public class Hand implements Comparable<Hand>{
         sameCardsRank = i;
       }
     }
-    
-    System.out.println("numSameCards: " + numSameCards);
-    System.out.println("sameCardsRank: " + sameCardsRank);
     
     switch (numSameCards) {
       case 1 : 
@@ -186,6 +183,26 @@ public class Hand implements Comparable<Hand>{
       System.out.println(myCards[i].toString());
     }
   }
+  
+  @Override 
+  public boolean equals(Object other) {
+    if(other == null) return false;
+    if(this.getClass() != other.getClass()) return false;
+    Hand c = (Hand) other;
+    for(int i = 0; i < this.myCards.length; i++){
+      return myCards[i].equals(c.myCards[i]);
+    }
+    return (this.myRankings.equals(c.myRankings) && this.myRankValue.equals(c.myRankValue));
+  }
+  
+  @Override 
+  public int hashCode() {
+    int prime = 51;
+    int hash = 1;
+    hash = (prime * hash) + Arrays.deepHashCode(myCards);
+    hash = (prime * hash) + Arrays.stream(myRankValue).sum();
+    return hash; 
+  }
 
   @Override
   public int compareTo(Hand o) {
@@ -199,6 +216,20 @@ public class Hand implements Comparable<Hand>{
     return 0;
   }
   
+  public int getNumOfCards(CardRank rank) {
+    int n = 0;
+    for(int i = 0; i < this.myCards.length; i++){
+      n = (myCards[i].getRank() == rank ? n + 1 : n);
+    }
+    return n;
+  }
   
+  public int getNumOfSuits(CardSuit suit) {
+    int n = 0;
+    for(int i = 0; i < this.myCards.length; i++){
+      n = (myCards[i].getSuit() == suit ? n + 1 : n);
+    }
+    return n;
+  }
 
 }

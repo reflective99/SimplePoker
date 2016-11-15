@@ -108,11 +108,12 @@ public class RankCalculator {
         break;
       }
     }    
+    //System.out.println(result);
     return result;
   }
   
   public void submitPlayers(List<Player> players) {
-    this.generateWinnerList(players);
+    this.winners = this.generateWinnerList(players);
   }
 
   public List<Integer> getWinners() {
