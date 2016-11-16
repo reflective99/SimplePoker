@@ -6,46 +6,59 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * InputReader reads in the input string 
+ * from a Scanner and parses it accordingly.
+ * The input is given in the following format
+ * 1               : first line represents num of players
+ * 0 2d Ts 4d      : second line represents the player id and the hand
+ */
 public class InputReader {
 
+  /** A Map of <pre>Player</pre> ids to their corresponding hand as specified in the input */
   private Map<Integer, List<String>> playerHands;
+  /** Number of total players */
   private int numPlayers;
+  /** Scanner with the input from <code>System.in</code> */
   private Scanner scanner;
 
+  /**
+   * Constructor that instantiates the scanner field
+   * and throws an <code>IllegalArgumentException</code>
+   * in case of null input.
+   * @param sc - scanner containing the player ids and hands
+   */
   public InputReader(Scanner sc){
     if(sc == null)
       throw new IllegalArgumentException();
     scanner = sc;
-    readInput(this.scanner);
+    parseInput(this.scanner);
   }
 
-  private void readInput(Scanner scanner) {
+  /**
+   * This method parses the input in the scanner
+   * and populates the instance variables above
+   * @param scanner
+   */
+  private void parseInput(Scanner scanner) {
 
     numPlayers = scanner.nextInt(); 
-    //System.out.println("Num Players Read: " + numPlayers);
     scanner.nextLine();
-
     playerHands = new HashMap<Integer, List<String>>();
-
     for(int i = 0; i < numPlayers; i++){
       String s = scanner.nextLine();
-      //System.out.println("Player Hands: " + s);
       String[] spl = s.split(" ");
-      //System.out.println("Hand Split: " + Arrays.toString(spl));
       List<String> hand = new ArrayList<String>();
       for(int j = 1; j < spl.length; j++){
         hand.add(spl[j]);
       }
       playerHands.put(Integer.parseInt(spl[0]), hand);
     }
-
     scanner.close();
-    //System.out.println();
-    //System.out.println("numPlayers: " + numPlayers);
-    //System.out.println("input: " + playerHands);
 
   }
-
+  
+  /** Getters and Setters for retrieving InputReader fields */
   public Map<Integer, List<String>> getPlayerHands() {
     return playerHands;
   }

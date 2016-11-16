@@ -1,5 +1,13 @@
 package main;
 
+/**
+ * The Card Class contains the blue print for
+ * a {@link=Player} Card from a Deck of 52 Cards.
+ * Each Card has a {@link=CardSuit} (SPADE, DIAMOND,
+ * HEARTS, CLUBS) and a {@link=CardRank} (A,1,2,3,4,5,6
+ * 7,8,9,10,J,Q,K) The ACE is the highest ranking card
+ * and 2 is the Lowest Ranking Card.  
+ */
 public class Card implements Comparable<Card>{
 
   private CardSuit suit;
@@ -64,7 +72,7 @@ public class Card implements Comparable<Card>{
   @Override 
   public String toString() {
     StringBuilder cardString = new StringBuilder();
-    cardString.append(" ");
+    cardString.append("[");
     int value = this.getRankAsInt();
     if(value == 14){
       cardString.append("Ace");
@@ -78,10 +86,10 @@ public class Card implements Comparable<Card>{
       cardString.append(value);
     }
     switch(this.getSuit()) {
-      case SPADES:
+      case SPADE:
         cardString.append((char) '\u2660');         
         break;
-      case DIAMONDS:
+      case DIAMOND:
         cardString.append((char) '\u2666');
         break;
       case HEARTS:
@@ -91,6 +99,7 @@ public class Card implements Comparable<Card>{
         cardString.append((char) '\u2663');
         break;
     }
+    cardString.append(']');
     return cardString.toString();
   }
 

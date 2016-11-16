@@ -1,5 +1,11 @@
 package main;
 
+/**
+ * The CardRank Enum contains all the Rankings
+ * for each individual card in a regular deck of
+ * 52 cards. The ACE can take on a value of 14 or 
+ * 1 depending on the hand played.
+ */
 public enum CardRank {
   
   ACE(1),

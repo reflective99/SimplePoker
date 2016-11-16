@@ -31,13 +31,13 @@ public class HandComparisionTest {
         new Hand(new Card[] { 
         new Card(CardRank.JACK, CardSuit.CLUBS), 
         new Card(CardRank.NINE, CardSuit.HEARTS), 
-        new Card(CardRank.ACE, CardSuit.DIAMONDS)});
+        new Card(CardRank.ACE, CardSuit.DIAMOND)});
     
     pair            = 
         new Hand(new Card[] { 
         new Card(CardRank.FIVE, CardSuit.CLUBS), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
-        new Card(CardRank.NINE, CardSuit.DIAMONDS) });
+        new Card(CardRank.NINE, CardSuit.DIAMOND) });
     
     flush           =  
         new Hand(new Card[] { 
@@ -49,19 +49,19 @@ public class HandComparisionTest {
         new Hand(new Card[] { 
         new Card(CardRank.ACE, CardSuit.CLUBS), 
         new Card(CardRank.TWO, CardSuit.HEARTS), 
-        new Card(CardRank.THREE, CardSuit.DIAMONDS)});
+        new Card(CardRank.THREE, CardSuit.DIAMOND)});
     
     highStraight    = 
         new Hand(new Card[] { 
         new Card(CardRank.QUEEN, CardSuit.CLUBS), 
         new Card(CardRank.KING, CardSuit.HEARTS), 
-        new Card(CardRank.ACE, CardSuit.DIAMONDS)});
+        new Card(CardRank.ACE, CardSuit.DIAMOND)});
     
     threeOfAKind    = 
         new Hand(new Card[] { 
         new Card(CardRank.FIVE, CardSuit.CLUBS), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
-        new Card(CardRank.FIVE, CardSuit.DIAMONDS) });
+        new Card(CardRank.FIVE, CardSuit.DIAMOND) });
     
     lowStraightFlush= 
         new Hand(new Card[] { 
@@ -110,5 +110,17 @@ public class HandComparisionTest {
   public void highStraightFlushShouldBeatLowStraightFlush() {
     assertThat(highStraightFlush.compareTo(lowStraightFlush), is(-1));
   }
-
+  
+  @Test
+  public void shouldGetTheCorrectHandRanking() {
+    assertThat(highCard.getMyRankValue()[0], is(1));
+    assertThat(pair.getMyRankValue()[0], is(2));
+    assertThat(flush.getMyRankValue()[0], is(3));
+    assertThat(lowStraight.getMyRankValue()[0], is(4));
+    assertThat(highStraight.getMyRankValue()[0], is(4));
+    assertThat(threeOfAKind.getMyRankValue()[0], is(5));
+    assertThat(lowStraightFlush.getMyRankValue()[0], is(6));
+    assertThat(highStraightFlush.getMyRankValue()[0], is(6));
+  }
+  
 }

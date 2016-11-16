@@ -22,7 +22,7 @@ import main.RankCalculator;
 
 @RunWith(Parameterized.class)
 public class RankCalculatorTest {
-
+  
   @SuppressWarnings("unused")
   private File testFile;
   private RankCalculator ranker;
@@ -42,15 +42,22 @@ public class RankCalculatorTest {
   }
 
   public RankCalculatorTest(File testFile) throws FileNotFoundException {
+    
     this.testFile = testFile;
-    System.out.println("=============================================================");
-    System.out.println("Testing for file " + testFile.getName());
+    
+    /*
+     * System.out.println("===========================================================================");
+     * System.out.println("Testing File " + testFile.getName() );
+     * System.out.println("===========================================================================");
+     */
     ranker = new RankCalculator();
     System.setIn(new FileInputStream(testFile));
     Scanner sc = new Scanner(System.in);
     inputReader = new InputReader(sc);
-    List<Player> sortedPlayers = ranker.rankWinners(inputReader.getPlayerHands());
-    ranker.submitPlayers(sortedPlayers);
+    ranker.setNumTotalPlayers(inputReader.getNumPlayers());
+    List<Player> playerList = ranker.submitPlayerMapToGeneratePlayerList
+        (inputReader.getPlayerHands());
+    ranker.submitPlayersForRanking(playerList);
     winners = ranker.getWinners();
     System.setIn(new FileInputStream(testFile));
     sc = new Scanner(System.in);
@@ -64,8 +71,6 @@ public class RankCalculatorTest {
       expectedWinners.add(Integer.parseInt(s));
     }
     sc.close();
-    System.out.println("Expected Winners: " + expectedWinners);
-    System.out.println("Winners Ranked: " + winners);
   }
 
   @Test 
@@ -78,9 +83,6 @@ public class RankCalculatorTest {
     for(int i = 0; i < winners.size(); i++){
       assertThat(winners.get(i), is(expectedWinners.get(i)));
     }
-    System.out.println("=============================================================");
-    System.out.println();
   }
-  
 
 }

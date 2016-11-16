@@ -45,23 +45,18 @@ public class InputReaderTest {
 
   @Test 
   public void shouldReadInTheCurrentNumPlayers() {
-
     int numPlayers = reader.getNumPlayers();
     assertThat(numPlayers, is(3));
-
   }
 
   @Test
   public void shouldProduceTheCorrectSizedPlayerMap() {
-
     int mapSize = reader.getPlayerHands().size();    
     assertThat(mapSize, is(3));
-
   }
 
   @Test
   public void mapEntriesShouldHaveTheCorrectHands() {
-    
     Map<Integer, List<String>> playerMap = reader.getPlayerHands();
     for(int i = 0; i < players.length; i++){
       assertThat(playerMap.containsKey(players[i]), is(true));

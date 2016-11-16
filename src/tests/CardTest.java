@@ -1,12 +1,6 @@
 package tests;
 
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-
 import static org.hamcrest.core.Is.*;
 
 import org.junit.Test;
@@ -14,6 +8,7 @@ import org.junit.Test;
 import main.CardRank;
 import main.CardSuit;
 import main.Card;
+
 public class CardTest {
 
   private static final CardRank[] ALL_RANKS = CardRank.values();
@@ -37,7 +32,7 @@ public class CardTest {
   @Test
   public void shouldCorrectlyCompareCardRanks() {
     
-    Card ACE = new Card(CardRank.ACE, CardSuit.DIAMONDS);
+    Card ACE = new Card(CardRank.ACE, CardSuit.DIAMOND);
     /** Less than */
     for(int i = 2; i < ALL_RANKS.length; i++) {
       Card lower  = new Card(ALL_RANKS[i-1], ALL_SUITS[1]);
