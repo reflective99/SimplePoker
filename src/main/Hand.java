@@ -52,6 +52,7 @@ public class Hand implements Comparable<Hand>{
     myRankCards = new boolean[Ranking.values().length + 1];
     
     populateCards(cards);
+    Arrays.sort(myCards);
     
     /** Calculates the number of cards of each CardRank in this hand
      *  and the specific number of times they appear */
@@ -307,6 +308,14 @@ public class Hand implements Comparable<Hand>{
     System.out.println();
   }
   
+  @Override
+  public String toString() {
+    return (String.format("%-3s   %14s    Rank: %16s\n", 
+        this.getPlayerID(), 
+        Arrays.toString(this.getMyCards()), 
+        Arrays.toString(this.getMyRankValue())));
+  }
+  
   /** Overridden <code>equals()</code> method */
   @Override 
   public boolean equals(Object other) {
@@ -318,7 +327,7 @@ public class Hand implements Comparable<Hand>{
         return false;
       }
     }
-    return (this.myRankCards.equals(c.myRankCards) && this.myRankingValues.equals(c.myRankingValues));
+    return true;
   }
   
   /** Overridden <code>hashCode()</code> method */

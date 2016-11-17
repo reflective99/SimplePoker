@@ -4,17 +4,15 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import main.Card;
 import main.CardRank;
@@ -23,10 +21,8 @@ import main.Hand;
 
 public class RandGeneratorStats {
 
-  private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-  private static Lock readLock = readWriteLock.readLock();
-  private static Lock writeLock = readWriteLock.writeLock();
   protected static boolean isDone = false;
+  
   static CardSuit[] suits = CardSuit.values();
   static CardRank[] ranks = CardRank.values();
   
@@ -35,26 +31,26 @@ public class RandGeneratorStats {
     static Card[] myDeck;
     
     public static void generateDeck() {
-      Card[] deck = new Card[suits.length * ranks.length];
-      int deckSize = deck.length;
+      /** Initialize cards in a deck */
+      myDeck = new Card[suits.length * ranks.length];
 
       for(int i = 0; i < ranks.length; i++){
         for(int j = 0; j < suits.length; j++){
           Card newCard = new Card(ranks[i], suits[j]);
-          deck[suits.length*i + j] = newCard;
+          myDeck[suits.length*i + j] = newCard;
           //System.out.println(newCard);
         }
       }
-      myDeck = deck;
     }
     
     public synchronized static void shuffleDeck() {
-      for(int i = 0; i < myDeck.length; i++){
-        int rand = i + (int) (Math.random() * (myDeck.length - i));
-        Card temp = myDeck[rand];
-        myDeck[rand] = myDeck[i];
-        myDeck[i] = temp;
-      }
+      System.out.println("Deck Before Shuffle: " + Arrays.toString(myDeck));
+      List<Card> deckList = Arrays.asList(myDeck);
+      Collections.shuffle(deckList);
+      Collections.shuffle(deckList);
+      Collections.shuffle(deckList);
+      deckList.toArray(myDeck);
+      System.out.println("Deck After Shuffle: " + Arrays.toString(myDeck));
     }
     
     static Random random = new Random();
@@ -198,10 +194,10 @@ public class RandGeneratorStats {
           }
           BigDecimal numer = new BigDecimal(numerator);
           BigDecimal denomin = new BigDecimal(denom);
-          MathContext mc = new MathContext(8, RoundingMode.CEILING);
+          MathContext mc = new MathContext(20, RoundingMode.FLOOR);
           BigDecimal result = numer.divide(denomin, mc);
           result = result.multiply(BigDecimal.valueOf(100)); 
-          result = result.setScale(8, RoundingMode.CEILING);
+          result = result.setScale(6, RoundingMode.CEILING);
           return result;
     }
     
@@ -215,73 +211,57 @@ public class RandGeneratorStats {
     }
 
     private synchronized static void printStats() throws InterruptedException {
-      System.out.println("\n=======================");
-      System.out.println("Some Statistics: ");
-
-      System.out.print("\t Hearts   (\u2665):\t\t"       + Stats.totalHearts);    
-      System.out.print(" Percent:           "                   + Stats.totalHeartsPercent);
-
+      System.out.println("=================================================================================");
+      System.out.println("                              Some Statistics                                    ");
+      System.out.println("=================================================================================");
       System.out.println();
 
-      System.out.print("\t Spades   (\u2660):\t\t"       + Stats.totalSpades);    
-      System.out.print(" Percent:           "                   +   Stats.totalSpadesPercent);
+      System.out.println(
+          String.format("\t Hearts   (\u2665):\t\t   %-10s (\u2665) Percentage: %-20s \n" +
+                        "\t Spades   (\u2660):\t\t   %-10s (\u2660) Percentage: %-20s \n" +
+                        "\t Clubs    (\u2663):\t\t   %-10s (\u2663) Percentage: %-20s \n" +
+                        "\t Diamonds (\u2666):\t\t   %-10s (\u2666) Percentage: %-20s \n",
+                            Stats.totalHearts,                   Stats.totalHeartsPercent+" %",
+                            Stats.totalSpades,                   Stats.totalSpadesPercent+" %",
+                            Stats.totalClubs,                    Stats.totalClubsPercent+" %",
+                            Stats.totalDiamonds,                 Stats.totalDiamondsPercent+" %"));
 
+
+      System.out.print(
+          String.format("\t High Card Hands:          %-10s \t  Percentage: %-10s \n"
+                      + "\t Pair Hands:               %-10s \t  Percentage: %-10s \n"
+                      + "\t Flush Hands:              %-10s \t  Percentage: %-10s \n"
+                      + "\t Straight Hands:           %-10s \t  Percentage: %-10s \n"
+                      + "\t Three Of A Kind Hands:    %-10s \t  Percentage: %-10s \n"
+                      + "\t Straight Flush Hands:     %-10s \t  Percentage: %-10s \n",
+                                              Stats.highCards,          Stats.highCardsP+" %", 
+                                              Stats.pairs,              Stats.pairsP+" %",
+                                              Stats.flushes,            Stats.flushesP+" %", 
+                                              Stats.straights,          Stats.straightsP+" %",
+                                              Stats.threeOfAKinds,      Stats.threeOfAKindsP+" %",
+                                              Stats.straightFlushes,    Stats.straightFlushesP+" %"));
       System.out.println();
-
-      System.out.print("\t Clubs    (\u2663):\t\t"       + Stats.totalClubs);     
-      System.out.printf(" Percent:           "                  + Stats.totalClubsPercent);
-
-      System.out.println();
-
-      System.out.print("\t Diamonds (\u2666):\t\t"       + Stats.totalDiamonds);  
-      System.out.printf(" Percent:           "                  + Stats.totalDiamondsPercent);
-
-      System.out.println();
-
-      System.out.println("\t Total Cards Generated:              " + Stats.totalCardsSoFar);
-      System.out.println("\t Total Hands Generated:              " + Stats.totalHandsSoFar);
-
-      System.out.println();
-
-      System.out.print("\t High Card Hands:          "+ Stats.highCards + "        ");  
-      System.out.printf("Percent:           "                   + Stats.highCardsP);
       
-      System.out.println();
+      System.out.println(
+                        "\t Total Cards Generated:    " + Stats.totalCardsSoFar);
+      System.out.println(
+                        "\t Total Hands Generated:    " + Stats.totalHandsSoFar);
 
-      System.out.print("\t Pair Hands                "+ Stats.pairs + "        ");  
-      System.out.printf("Percent:           "                   + Stats.pairsP);
-      
       System.out.println();
-
-      System.out.print("\t Flush Hands:              "+ Stats.flushes + "        ");  
-      System.out.printf("Percent:           "                   + Stats.flushesP);
-      
-      System.out.println();
-
-      System.out.print("\t Straight Hands:           "+ Stats.straights + "        ");  
-      System.out.printf("Percent:           "                   + Stats.straightsP);
-      
-      System.out.println();
-
-      System.out.print("\t Three Of A Kind Hands:    "+ Stats.threeOfAKinds + "        ");  
-      System.out.printf("Percent:           "                   + Stats.threeOfAKindsP);
-      
-      System.out.println();
-
-      System.out.print("\t Straight Flush Hands:     "+ Stats.straightFlushes + "        ");  
-      System.out.printf("Percent:           "                   + Stats.straightFlushesP);
-      System.out.println("\n=======================");
+      System.out.println("=================================================================================");
     }
   }
 
 
-  private static final long NUM_RUNS = 999999999;
-  private static final int NUM_THREADS = 1000;
-  private static final int NUM_HANDS_TO_GENERATE = 1400;
-  private static CustomThreadPoolExecutor executor;
-  @SuppressWarnings("unused")
-  public static void main(String[] args) throws Exception {
+  private static final long NUM_RUNS = 732;
+  
+  private static final int NUM_THREADS = 1;
+  
+  private static final int NUM_HANDS_TO_GENERATE = 732;
 
+  private static CustomThreadPoolExecutor executor;
+  
+  public static void main(String[] args) throws Exception {
     long startTime = System.currentTimeMillis();
     int threadCounter = 0;
     final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(NUM_HANDS_TO_GENERATE);
@@ -293,30 +273,27 @@ public class RandGeneratorStats {
             10, TimeUnit.SECONDS,
             queue);
     executor.setRejectedExecutionHandler(new RejectedExecutionHandler() {
-
       @Override
       public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        String name = null;
+        /*String name = null;
+        String typeThread = null;
         if(r instanceof PrinterThread) {
           name = ((PrinterThread) r).getName();
+          typeThread = "PrinterThread";
         } else {
           name = ((WorkerThread) r).getName();
-        }
-        //System.out.println("Worker Task Rejected: " + name);
+          typeThread = "WorkerThread";
+        }*/
+        //System.out.println(typeThread +"-"+name+" rejected...");
         //System.out.println("Waiting for a split second");
         try {
           Thread.sleep(200);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        //for(int i = 0; i < 10; i++){
-        //  RandomDeckGenerator.shuffleDeck();
-        //}
-        //RandomDeckGenerator.shuffleDeck();
         //System.out.println("Trying again...");
         executor.execute(r);
       }
-      
     });
     RandomDeckGenerator.generateDeck();
     executor.prestartAllCoreThreads();
@@ -333,39 +310,6 @@ public class RandGeneratorStats {
         break;
       }
     }
-//    Thread printer = new Thread(new Runnable(){
-//
-//      @Override
-//      public void run() {
-//        try {
-//          while(!RandGeneratorStats.isDone && NUM_RUNS % 10000 == 0){
-//            System.out.println("PRINTER PRINTING");
-//            int rand = 3000 + (int) Math.random() * 5000;
-//            Stats.printStats();
-//            Thread.sleep(rand);
-//          }
-//          
-//
-//        } catch (InterruptedException e) {
-//          System.out.println("PRINTER DONE");
-//          e.printStackTrace();
-//        }        
-//      }
-//
-//    });
-    //printer.setDaemon(true);
-    //printer.start();
-    
-//    long limit = 0;
-//    for(long i = limit; i < limit+100 && i < NUM_RUNS; i++){
-////      if(executor instanceof ThreadPoolExecutor) {
-////        System.out.println("Pool size: " + ((ThreadPoolExecutor) executor).getActiveCount());
-////      }
-//      Runnable worker = new WorkerThread(NUM_HANDS_TO_GENERATE);
-//      executor.execute(worker);
-//    }
-//    Thread.sleep(3000);
-    
     
     if(threadCounter == NUM_RUNS) {
       executor.shutdown();
@@ -376,27 +320,13 @@ public class RandGeneratorStats {
     
 
     System.out.println("\n\nPrinting Final Stats:");
+    
     Stats.printStats();
-
+    
     long endTime = System.currentTimeMillis();
     long timeElapsedInSecs = (endTime - startTime)/1000;
+    
     System.out.println("Time Elapsed: " + timeElapsedInSecs +"s");
-  }
-
-  public static Lock requestReadLock(){
-    if(readLock.tryLock()){
-      return readLock;
-    } else {
-      return readLock;
-    }
-  }
-
-  public static Lock requestWriteLock(){
-    if(writeLock.tryLock()){
-      return writeLock;
-    } else {
-      return writeLock;
-    }
   }
 
 }

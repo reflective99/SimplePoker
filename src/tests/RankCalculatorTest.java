@@ -32,7 +32,7 @@ public class RankCalculatorTest {
 
   @Parameters
   public static Collection<Object[]> data() {
-    File folder = new File(System.getProperty("user.dir")+"/src/tests/files");
+    File folder = new File(System.getProperty("user.dir")+"/src/tests/files/auto-generated-tests");
     File[] files = folder.listFiles();
     List<Object[]> parameters = new ArrayList<Object[]>(files.length);
     for(File f : files){
@@ -45,11 +45,11 @@ public class RankCalculatorTest {
     
     this.testFile = testFile;
     
-    /*
-     * System.out.println("===========================================================================");
-     * System.out.println("Testing File " + testFile.getName() );
-     * System.out.println("===========================================================================");
-     */
+    
+     //System.out.println("===========================================================================");
+     //System.out.println("Testing File " + testFile.getName() );
+     //System.out.println("===========================================================================");
+     
     ranker = new RankCalculator();
     System.setIn(new FileInputStream(testFile));
     Scanner sc = new Scanner(System.in);
@@ -71,6 +71,8 @@ public class RankCalculatorTest {
       expectedWinners.add(Integer.parseInt(s));
     }
     sc.close();
+    //System.out.println("Expected Winners: " + expectedWinners);
+    //System.out.println("Calculated Winners: " + winners);
   }
 
   @Test 
@@ -80,6 +82,7 @@ public class RankCalculatorTest {
   
   @Test
   public void shouldReturnCorrectWinners() {
+    
     for(int i = 0; i < winners.size(); i++){
       assertThat(winners.get(i), is(expectedWinners.get(i)));
     }

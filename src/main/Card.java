@@ -69,8 +69,37 @@ public class Card implements Comparable<Card>{
     return hash; 
   }
   
+  
   @Override 
   public String toString() {
+    StringBuilder cardString = new StringBuilder();
+    int value = this.getRankAsInt();
+    if(value == 14){
+      cardString.append("A");
+    } else if (value == 13) {
+      cardString.append("K");
+    } else if (value == 12) {
+      cardString.append("Q");
+    } else if (value == 11) {
+      cardString.append("J");
+    } else if (value == 10) {
+      cardString.append("T");
+    } else {
+      cardString.append(Integer.toString(value));
+    }
+    if(this.getSuit().ordinal() == 0){
+      cardString.append("s");
+    } else if (suit.ordinal() == 1) {
+      cardString.append("d");
+    } else if (suit.ordinal() == 2) {
+      cardString.append("c");
+    } else {
+      cardString.append("h");
+    }
+    return cardString.toString();
+  }
+  
+  public String toUnicodeString() {
     StringBuilder cardString = new StringBuilder();
     cardString.append("[");
     int value = this.getRankAsInt();

@@ -24,7 +24,7 @@ public class RankCalculator {
   private List<Player> playerList = new ArrayList<Player>();
   /** A <code>List<></code> of Integers which contains the final winners' IDs */
   private List<Integer> winners = new ArrayList<Integer>();
-  
+
   /**
    * The <m>main()</m> method of RankCalculator class 
    * retrieves the input from <code>System.in</code>
@@ -109,6 +109,7 @@ public class RankCalculator {
      *  The mechanism for sorting is implemented in the compareTo()
      *  methods of the Player and Hand classes.*/
     Collections.sort(players);
+    //System.out.println(players);
     List<Integer> result = new ArrayList<Integer>();
     /** Get the first Winner */
     Player winner = players.get(0);

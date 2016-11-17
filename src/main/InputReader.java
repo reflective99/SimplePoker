@@ -52,6 +52,7 @@ public class InputReader {
       for(int j = 1; j < spl.length; j++){
         hand.add(spl[j]);
       }
+      //System.out.println("Player: " + spl[0] + " hand " + hand);
       playerHands.put(Integer.parseInt(spl[0]), hand);
     }
     scanner.close();

@@ -24,7 +24,7 @@ public class Player implements Comparable<Player>{
 
   @Override 
   public String toString() {
-    return "P"+myID+ " " + myHand.toString();
+    return myHand.toString();
   }
 
   public String toStringWithRank() {
