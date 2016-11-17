@@ -92,7 +92,7 @@ public class RandGeneratorStats {
       totalCardsSoFar = totalCardsSoFar.add(BigInteger.valueOf(3));
       totalHearts     = totalHearts.add(BigInteger.valueOf(hand.getNumOfSuits(CardSuit.HEARTS)));
       totalSpades     = totalSpades.add(BigInteger.valueOf(hand.getNumOfSuits(CardSuit.HEARTS)));
-      totalClubs      = totalClubs.add(BigInteger.valueOf(hand.getNumOfSuits(CardSuit.CLUBS)));
+      totalClubs      = totalClubs.add(BigInteger.valueOf(hand.getNumOfSuits(CardSuit.CLUB)));
       totalDiamonds   = totalDiamonds.add(BigInteger.valueOf(hand.getNumOfSuits(CardSuit.DIAMOND)));
       switch (hand.getMyRankValue()[0]) {
         case 1:
@@ -141,7 +141,7 @@ public class RandGeneratorStats {
       for(int i = 0; i < myHands.length; i++) {
         hearts   += myHands[i].getNumOfSuits(CardSuit.HEARTS);
         spades   += myHands[i].getNumOfSuits(CardSuit.SPADE);
-        clubs    += myHands[i].getNumOfSuits(CardSuit.CLUBS);
+        clubs    += myHands[i].getNumOfSuits(CardSuit.CLUB);
         diamonds += myHands[i].getNumOfSuits(CardSuit.DIAMOND);
         switch (myHands[i].getMyRankValue()[0]) {
           case 1:

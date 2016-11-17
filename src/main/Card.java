@@ -1,39 +1,58 @@
 package main;
 
 /**
- * The Card Class contains the blue print for
- * a {@link=Player} Card from a Deck of 52 Cards.
- * Each Card has a {@link=CardSuit} (SPADE, DIAMOND,
- * HEARTS, CLUBS) and a {@link=CardRank} (A,1,2,3,4,5,6
- * 7,8,9,10,J,Q,K) The ACE is the highest ranking card
- * and 2 is the Lowest Ranking Card.  
+ * <h1>The Card Class</h1> This class contains the blue print for a
+ * <b>{@link Player}'s</b> <b>Card</b> from a deck of 52 stand cards.
+ * <p>
+ * Each <b>Card</b> has a {@link CardSuit Suit} and a {@link CardRank Rank} as
+ * follows:
+ * <p>
+ * <b>Suits</b>: {@link CardSuit#SPADE Spade} {@link CardSuit#HEARTS Heart}
+ * {@link CardSuit#DIAMOND Diamond} {@link CardSuit#CLUB Club}
+ * <p>
+ * <b>Ranks:</b> {@link CardRank#ACE ACE} {@link CardRank#TWO 2}
+ * {@link CardRank#THREE 3} {@link CardRank#FOUR 4} {@link CardRank#FIVE 5}
+ * {@link CardRank#SIX 6} {@link CardRank#SEVEN 7} {@link CardRank#EIGHT 8}
+ * {@link CardRank#NINE 9} {@link CardRank#TEN 10} {@link CardRank#JACK JACK}
+ * {@link CardRank#QUEEN QUEEN} {@link CardRank#KING KING}
+ * <p>
  */
 public class Card implements Comparable<Card>{
 
   private CardSuit suit;
   private CardRank rank;
 
+  /**
+   * Constructor for a Card Object. 
+   * @param rank
+   * @param suit
+   */
   public Card(CardRank rank, CardSuit suit) {
     this.suit = suit;
     this.rank = rank;
   }
-
+  
+  /** Gets the Suit of a Card  */
   public CardSuit getSuit() {
     return this.suit;
   }
-
+  
+  /** Sets the Suit of a Card */
   public void setsuit(CardSuit suit) {
     this.suit = suit;
   }
-
+  
+  /** Gets the Rank of a Card */
   public CardRank getRank() {
     return this.rank;
   }
-
+  
+  /** Sets the Rank of a Card */
   public void setMyRank(CardRank rank) {
     this.rank = rank;
   }
   
+  /** Gets the Rank of a Card as an int value */
   public Integer getRankAsInt() {
     if(this.rank == CardRank.ACE) {
       return 14;
@@ -41,6 +60,7 @@ public class Card implements Comparable<Card>{
     return rank.getValue();
   }
   
+  /** Compares two Card Objects based on their Rank */
   @Override
   public int compareTo(Card other) {
     if(this.getRankAsInt() < other.getRankAsInt()){
@@ -51,7 +71,9 @@ public class Card implements Comparable<Card>{
     return 0;
     
   }
-
+  
+  /** Returns whether two Card Objects are equal to each 
+   *  by checking if their Rank and the Suit are the Same.*/
   @Override 
   public boolean equals(Object other) {
     if(other == null) return false;
@@ -124,7 +146,7 @@ public class Card implements Comparable<Card>{
       case HEARTS:
         cardString.append((char) '\u2665');
         break;
-      case CLUBS:
+      case CLUB:
         cardString.append((char) '\u2663');
         break;
     }

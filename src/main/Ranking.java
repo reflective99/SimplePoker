@@ -1,5 +1,10 @@
 package main;
 
+/**
+ * This Enum contains the Rankings 
+ * of each individual Hand that a 
+ * player can receive 
+ */
 public enum Ranking {
   
   HIGH_CARD(1),        // Ranking 1

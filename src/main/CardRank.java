@@ -8,8 +8,10 @@ package main;
  */
 public enum CardRank {
   
-  ACE(1),
-  TWO(2), 
+  /** Represents an ACE Card's value */
+  ACE(1),   
+  /** Represents a TWO Card's value */
+  TWO(2),   
   THREE(3), 
   FOUR(4), 
   FIVE(5), 
@@ -22,6 +24,7 @@ public enum CardRank {
   QUEEN(12), 
   KING(13);
   
+  /** The int value associated with a rank */
   private int value;
   
   private CardRank(int val) {

@@ -9,8 +9,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * {@docRoot main}
  * RankCalculator is the Main class where the the input
- * <code>args</code> are passed in. It calculates 
+ * <m>args</m> are passed in. It calculates 
  * the Ranking of each player in the input and 
  * prints it out at the end.
  */
@@ -173,7 +174,7 @@ public class RankCalculator {
         suit = CardSuit.DIAMOND;
         break;
       case 'c': 
-        suit = CardSuit.CLUBS;
+        suit = CardSuit.CLUB;
         break;
       case 'h':
         suit = CardSuit.HEARTS;

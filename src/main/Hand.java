@@ -8,10 +8,10 @@ import main.Ranking;
 
 /**
  *  Hand Class contains the current hand dealt 
- *  to the {@link=Player}. It stores the Hand 
- *  as an array of {@link=Card} Objects. This 
+ *  to the Player. It stores the Hand 
+ *  as an array of Card Objects. This 
  *  class is most essential in determining the 
- *  rankings of each {@link=Player}.
+ *  rankings of each Player.
  */
 public class Hand implements Comparable<Hand>{
   
@@ -194,7 +194,7 @@ public class Hand implements Comparable<Hand>{
   /**
    * This methods populates the internal array 
    * of Card Objects for this hand
-   * @param cards - an <b>Array</b> of Card Objects
+   * @param cards - an <b>Array</b> of {@linkplain}Card Objects
    */
   private void populateCards(Card[] cards) {
     for(int i = 0; i < myHandSize; i++){

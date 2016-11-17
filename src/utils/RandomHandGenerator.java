@@ -233,7 +233,7 @@ public class RandomHandGenerator{
     //for(int i = 0; i < myHands.length; i++) {
       //hearts   += myHands[i].getNumOfSuits(CardSuit.HEARTS);
       //spades   += myHands[i].getNumOfSuits(CardSuit.SPADE);
-      //clubs    += myHands[i].getNumOfSuits(CardSuit.CLUBS);
+      //clubs    += myHands[i].getNumOfSuits(CardSuit.CLUB);
       //diamonds += myHands[i].getNumOfSuits(CardSuit.DIAMOND);
     //}
 

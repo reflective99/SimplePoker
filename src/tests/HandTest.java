@@ -33,44 +33,44 @@ public class HandTest {
     List<Card[]> handsToTest = new ArrayList<Card[]>();
 
     Card[] highCard = new Card[] { 
-        new Card(CardRank.JACK, CardSuit.CLUBS), 
+        new Card(CardRank.JACK, CardSuit.CLUB), 
         new Card(CardRank.NINE, CardSuit.HEARTS), 
         new Card(CardRank.ACE, CardSuit.DIAMOND)};
     
     Card[] pair = new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
         new Card(CardRank.NINE, CardSuit.DIAMOND)};
     
     Card[] flush = new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
-        new Card(CardRank.SEVEN, CardSuit.CLUBS), 
-        new Card(CardRank.NINE, CardSuit.CLUBS)};
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
+        new Card(CardRank.SEVEN, CardSuit.CLUB), 
+        new Card(CardRank.NINE, CardSuit.CLUB)};
     
     Card[] lowStraight = new Card[] { 
-        new Card(CardRank.ACE, CardSuit.CLUBS), 
+        new Card(CardRank.ACE, CardSuit.CLUB), 
         new Card(CardRank.TWO, CardSuit.HEARTS), 
         new Card(CardRank.THREE, CardSuit.DIAMOND)};
     
     Card[] highStraight = new Card[] { 
-        new Card(CardRank.QUEEN, CardSuit.CLUBS), 
+        new Card(CardRank.QUEEN, CardSuit.CLUB), 
         new Card(CardRank.KING, CardSuit.HEARTS), 
         new Card(CardRank.ACE, CardSuit.DIAMOND)};
     
     Card[] threeOfAKind = new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
         new Card(CardRank.FIVE, CardSuit.DIAMOND) };
     
     Card[] lowStraightFlush = new Card[] { 
-        new Card(CardRank.ACE, CardSuit.CLUBS), 
-        new Card(CardRank.TWO, CardSuit.CLUBS), 
-        new Card(CardRank.THREE, CardSuit.CLUBS)};
+        new Card(CardRank.ACE, CardSuit.CLUB), 
+        new Card(CardRank.TWO, CardSuit.CLUB), 
+        new Card(CardRank.THREE, CardSuit.CLUB)};
     
     Card[] highStraightFlush = new Card[] { 
-        new Card(CardRank.QUEEN, CardSuit.CLUBS), 
-        new Card(CardRank.KING, CardSuit.CLUBS), 
-        new Card(CardRank.ACE, CardSuit.CLUBS)}; 
+        new Card(CardRank.QUEEN, CardSuit.CLUB), 
+        new Card(CardRank.KING, CardSuit.CLUB), 
+        new Card(CardRank.ACE, CardSuit.CLUB)}; 
 
     handsToTest.add(highCard); handsToTest.add(pair); handsToTest.add(flush);
     handsToTest.add(lowStraight); handsToTest.add(highStraight); handsToTest.add(threeOfAKind);

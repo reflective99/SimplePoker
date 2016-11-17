@@ -29,51 +29,51 @@ public class HandComparisionTest {
     
     highCard        =          
         new Hand(new Card[] { 
-        new Card(CardRank.JACK, CardSuit.CLUBS), 
+        new Card(CardRank.JACK, CardSuit.CLUB), 
         new Card(CardRank.NINE, CardSuit.HEARTS), 
         new Card(CardRank.ACE, CardSuit.DIAMOND)});
     
     pair            = 
         new Hand(new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
         new Card(CardRank.NINE, CardSuit.DIAMOND) });
     
     flush           =  
         new Hand(new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
-        new Card(CardRank.SEVEN, CardSuit.CLUBS), 
-        new Card(CardRank.NINE, CardSuit.CLUBS)});
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
+        new Card(CardRank.SEVEN, CardSuit.CLUB), 
+        new Card(CardRank.NINE, CardSuit.CLUB)});
     
     lowStraight     = 
         new Hand(new Card[] { 
-        new Card(CardRank.ACE, CardSuit.CLUBS), 
+        new Card(CardRank.ACE, CardSuit.CLUB), 
         new Card(CardRank.TWO, CardSuit.HEARTS), 
         new Card(CardRank.THREE, CardSuit.DIAMOND)});
     
     highStraight    = 
         new Hand(new Card[] { 
-        new Card(CardRank.QUEEN, CardSuit.CLUBS), 
+        new Card(CardRank.QUEEN, CardSuit.CLUB), 
         new Card(CardRank.KING, CardSuit.HEARTS), 
         new Card(CardRank.ACE, CardSuit.DIAMOND)});
     
     threeOfAKind    = 
         new Hand(new Card[] { 
-        new Card(CardRank.FIVE, CardSuit.CLUBS), 
+        new Card(CardRank.FIVE, CardSuit.CLUB), 
         new Card(CardRank.FIVE, CardSuit.HEARTS), 
         new Card(CardRank.FIVE, CardSuit.DIAMOND) });
     
     lowStraightFlush= 
         new Hand(new Card[] { 
-        new Card(CardRank.ACE, CardSuit.CLUBS), 
-        new Card(CardRank.TWO, CardSuit.CLUBS), 
-        new Card(CardRank.THREE, CardSuit.CLUBS)});
+        new Card(CardRank.ACE, CardSuit.CLUB), 
+        new Card(CardRank.TWO, CardSuit.CLUB), 
+        new Card(CardRank.THREE, CardSuit.CLUB)});
     
     highStraightFlush = 
         new Hand(new Card[] { 
-        new Card(CardRank.QUEEN, CardSuit.CLUBS), 
-        new Card(CardRank.KING, CardSuit.CLUBS), 
-        new Card(CardRank.ACE, CardSuit.CLUBS)}); 
+        new Card(CardRank.QUEEN, CardSuit.CLUB), 
+        new Card(CardRank.KING, CardSuit.CLUB), 
+        new Card(CardRank.ACE, CardSuit.CLUB)}); 
   }
 
   @Test
